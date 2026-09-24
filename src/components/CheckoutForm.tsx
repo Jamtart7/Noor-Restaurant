@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { orderConfig } from "@/config/orderConfig";
+import { ORDER_API } from "@/config/orderConfig";
 
 type FulfillmentType = "delivery" | "collection";
 type PaymentMethod = "card" | "cash";
@@ -78,7 +78,7 @@ const CheckoutForm = () => {
 
       if (paymentMethod === "card") {
         // Stripe checkout
-        const response = await fetch(orderConfig.cardCheckout, {
+        const response = await fetch(ORDER_API.cardCheckout, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -96,7 +96,7 @@ const CheckoutForm = () => {
         window.location.href = sessionUrl;
       } else {
         // Cash order
-        const response = await fetch(orderConfig.cashOrders, {
+        const response = await fetch(ORDER_API.cashOrder, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
